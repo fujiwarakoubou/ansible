@@ -1,0 +1,2 @@
+- name: create ssh key
+  shell: ssh-keygen -t rsa -b 4096 -f ./roles/common/files/id_rsa

@@ -1,0 +1,9 @@
+---
+- hosts: local
+  connection: local
+  roles:
+    - sshkeygen
+
+- hosts: servers
+  roles:
+    - common
