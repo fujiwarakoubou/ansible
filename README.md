@@ -1,7 +1,7 @@
 # Ansible Sample
 
 Ansible練習用のサンプルリポジトリ  
-さくらVPSのCentOS7に特化したものを目指してる  
+さくらVPSのCentOS7に特化したものを目指してる（まだDockerのcentos7コンテナでしか確認できてないです）  
 
 
 ## Usage
@@ -26,15 +26,15 @@ site.ymlの利用について、いくつか編集しないと使えません。
 ディレクトリ構成
 
 ```
-sakuravps ─ centos7  ┬ group_vars 変数たち
-                     │
-                     ├ roles      サブモジュールたち
-                     │
-                     ├ hosts      インベントリファイル（編集して下さい）
-                     │
-                     ├ site.yml   サーバー初期設定モジュール
-                     │
-                     └ test.yml   テスト実行モジュール
+group_vars      変数たち  
+└ all
+roles           サブモジュールたち
+├ common       
+├ debug        
+└ sshkeygen    
+hosts           インベントリファイル（編集して下さい）
+site.yml        サーバー初期設定モジュール
+test.yml        テスト実行モジュール
 ```
 
 ## Relation
