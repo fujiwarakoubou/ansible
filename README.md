@@ -13,7 +13,6 @@ Ansible練習用のサンプルリポジトリ
 # yum -y install ansible
 # yum --enablerepo=epel -y install sshpass 
 # git clone https://github.com/fujiwarakoubou/ansible.git
-# cd ansible/sakuravps/centos7
 # ansible-playbook -i hosts test.yml
 ```
 
@@ -75,7 +74,6 @@ docker exec -it ansible_client /bin/bash
 yum --enablerepo=epel -y install sshpass 
 cd ~
 git clone https://github.com/fujiwarakoubou/ansible.git
-cd ansible/sakuravps/centos7
 vi hosts
 ansible-playbook -i hosts site.yml -k
 ```
