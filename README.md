@@ -1,12 +1,12 @@
 # Ansible Sample
 
-Ansible—ûK—p‚ÌƒTƒ“ƒvƒ‹ƒŠƒ|ƒWƒgƒŠ  
-‚³‚­‚çVPS‚ÌCentOS7‚É“Á‰»‚µ‚½‚à‚Ì‚ğ–Úw‚µ‚Ä‚éi‚Ü‚¾Docker‚Ìcentos7ƒRƒ“ƒeƒi‚Å‚µ‚©Šm”F‚Å‚«‚Ä‚È‚¢‚Å‚·j  
-
+Ansibleç·´ç¿’ç”¨ã®ã‚µãƒ³ãƒ—ãƒ«ãƒªãƒã‚¸ãƒˆãƒª  
+ã•ãã‚‰VPSã®CentOS7ã«ç‰¹åŒ–ã—ãŸã‚‚ã®ã‚’ç›®æŒ‡ã—ã¦ã‚‹ï¼ˆã¾ã Dockerã®centos7ã‚³ãƒ³ãƒ†ãƒŠã§ã—ã‹ç¢ºèªã§ãã¦ãªã„ã§ã™ï¼‰  
+ã¾ã ã¾ã æœªå®Œæˆã§ã™  
 
 ## Usage
 
-ƒeƒXƒgƒ‚ƒWƒ…[ƒ‹Às
+ãƒ†ã‚¹ãƒˆãƒ¢ã‚¸ãƒ¥ãƒ¼ãƒ«å®Ÿè¡Œ
 
 ```
 # yum -y update
@@ -17,31 +17,31 @@ Ansible—ûK—p‚ÌƒTƒ“ƒvƒ‹ƒŠƒ|ƒWƒgƒŠ
 # ansible-playbook -i hosts test.yml
 ```
 
-site.yml‚Ì—˜—p‚É‚Â‚¢‚ÄA‚¢‚­‚Â‚©•ÒW‚µ‚È‚¢‚Æg‚¦‚Ü‚¹‚ñB
+site.ymlã®åˆ©ç”¨ã«ã¤ã„ã¦ã€ã„ãã¤ã‹ç·¨é›†ã—ãªã„ã¨ä½¿ãˆã¾ã›ã‚“ã€‚
 
-1. hosts ‚ğ‰Šúİ’è‚µ‚½‚¢ƒT[ƒo[‚É‚µ‚Ä‰º‚³‚¢
-2. group_vars/all ‚ğ’Ç‰Á‚·‚éwheelƒ†[ƒU[‚É‚µ‚Ä‰º‚³‚¢
+1. hosts ã‚’åˆæœŸè¨­å®šã—ãŸã„ã‚µãƒ¼ãƒãƒ¼ã«ã—ã¦ä¸‹ã•ã„
+2. group_vars/all ã‚’è¿½åŠ ã™ã‚‹wheelãƒ¦ãƒ¼ã‚¶ãƒ¼ã«ã—ã¦ä¸‹ã•ã„
 3. `ansible-playbook -i hosts site.yml -k`
 
-ƒfƒBƒŒƒNƒgƒŠ\¬
+ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªæ§‹æˆ
 
 ```
-group_vars      •Ï”‚½‚¿  
-„¤ all
-roles           ƒTƒuƒ‚ƒWƒ…[ƒ‹‚½‚¿
-„¥ common       
-„¥ debug        
-„¤ sshkeygen    
-hosts           ƒCƒ“ƒxƒ“ƒgƒŠƒtƒ@ƒCƒ‹i•ÒW‚µ‚Ä‰º‚³‚¢j
-site.yml        ƒT[ƒo[‰Šúİ’èƒ‚ƒWƒ…[ƒ‹
-test.yml        ƒeƒXƒgÀsƒ‚ƒWƒ…[ƒ‹
+group_vars      å¤‰æ•°ãŸã¡  
+â”” all
+roles           ã‚µãƒ–ãƒ¢ã‚¸ãƒ¥ãƒ¼ãƒ«ãŸã¡
+â”œ common       
+â”œ debug        
+â”” sshkeygen    
+hosts           ã‚¤ãƒ³ãƒ™ãƒ³ãƒˆãƒªãƒ•ã‚¡ã‚¤ãƒ«ï¼ˆç·¨é›†ã—ã¦ä¸‹ã•ã„ï¼‰
+site.yml        ã‚µãƒ¼ãƒãƒ¼åˆæœŸè¨­å®šãƒ¢ã‚¸ãƒ¥ãƒ¼ãƒ«
+test.yml        ãƒ†ã‚¹ãƒˆå®Ÿè¡Œãƒ¢ã‚¸ãƒ¥ãƒ¼ãƒ«
 ```
 
 ## Relation
 
 [Ansible Best Practices](http://docs.ansible.com/ansible/playbooks_best_practices.html)  
 [ansible-examples/lanmp_simple](https://github.com/ansible/ansible-examples/tree/master/lamp_simple)  
-[À‘HIAnsibleƒxƒXƒgƒvƒ‰ƒNƒeƒBƒXi‘O•Òj](http://knowledge.sakura.ad.jp/tech/3084/)  
+[å®Ÿè·µï¼Ansibleãƒ™ã‚¹ãƒˆãƒ—ãƒ©ã‚¯ãƒ†ã‚£ã‚¹ï¼ˆå‰ç·¨ï¼‰](http://knowledge.sakura.ad.jp/tech/3084/)  
 
 ## Licence
 
@@ -54,9 +54,9 @@ test.yml        ƒeƒXƒgÀsƒ‚ƒWƒ…[ƒ‹
 
 ## Other
 
-Docker‚ÅAnsible‚ÌƒeƒXƒgŠÂ‹«‚ğ\’z‚µ‚æ‚¤‚Æ‚µ‚Ä‚é‚Æ‚«‚Ìƒƒ‚  
+Dockerã§Ansibleã®ãƒ†ã‚¹ãƒˆç’°å¢ƒã‚’æ§‹ç¯‰ã—ã‚ˆã†ã¨ã—ã¦ã‚‹ã¨ãã®ãƒ¡ãƒ¢  
 
-* ŠÂ‹«\’z‚³‚¹‚½‚¢ƒT[ƒo[issh‚ğóM‚Å‚«‚é‚æ‚¤‚É‚µ‚Ä‚¨‚­j  
+* ç’°å¢ƒæ§‹ç¯‰ã•ã›ãŸã„ã‚µãƒ¼ãƒãƒ¼ï¼ˆsshã‚’å—ä¿¡ã§ãã‚‹ã‚ˆã†ã«ã—ã¦ãŠãï¼‰  
 
 ```
 docker pull ansible/centos7-ansible
@@ -67,7 +67,7 @@ systemctl start sshd.service
 systemctl status sshd
 ```
 
-* AnsibleÀsƒT[ƒo[  (sshpass‚ª•K—vj
+* Ansibleå®Ÿè¡Œã‚µãƒ¼ãƒãƒ¼  (sshpassãŒå¿…è¦ï¼‰
 
 ```
 docker run --privileged --name ansible_client -d ansible/centos7-ansible /sbin/init
@@ -80,7 +80,7 @@ vi hosts
 ansible-playbook -i hosts site.yml -k
 ```
 
-* AnsibleÀsƒT[ƒo[‚©‚ç”é–§Œ®‚ğæ‚èo‚·  
+* Ansibleå®Ÿè¡Œã‚µãƒ¼ãƒãƒ¼ã‹ã‚‰ç§˜å¯†éµã‚’å–ã‚Šå‡ºã™  
 
 ```
 docker cp ansible_client:~/roles/common/files/id_rsa
