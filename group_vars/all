@@ -1,3 +1,8 @@
 # Please edit name and password(openssl passwd -1 [your password]). 
 users: 
-  - { name: "ansible", password: "$1$5t4uR4Tk$AsupbkitiN2WaF7LeY9e1.", groups: "wheel" }
+  - { name: 'ansible', password: '$1$5t4uR4Tk$AsupbkitiN2WaF7LeY9e1.', groups: 'wheel' }
+  
+sshd_configs:
+  - { regexp: '^PasswordAuthentication', line: 'PasswordAuthentication no', insertafter: '#PasswordAuthentication' }
+  - { regexp: '^PermitRootLogin', line: 'PermitRootLogin no', insertafter: '#PermitRootLogin' }
+  - { regexp: '^Port', line: 'Port 10022', insertafter: '#Port' }

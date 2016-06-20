@@ -2,17 +2,29 @@
   user: name={{item.name}} state=present password={{item.password}} groups={{item.groups}}
   with_items: "{{users}}"
   tags: users
+  
+- name: sudo configured
+  lineinfile: "dest=/etc/sudoers state=present create=yes regexp='^%wheel' line='%wheel ALL=(ALL) NOPASSWD: ALL' owner=root group=root mode=0440"
+  tags: users
 
 - name: .ssh for users
   file: path="/home/{{item.name}}/.ssh" state=directory owner={{item.name}} group={{item.name}} mode=0700
   with_items: "{{users}}"
-  tags: users
+  tags: ssh
 
 - name: authorized_keys for users
   copy: src=id_rsa.pub dest="/home/{{item.name}}/.ssh/authorized_keys" owner={{item.name}} group={{item.name}} mode=0600
   with_items: "{{users}}"
-  tags: users
+  tags: ssh
 
-- name: sudo configured
-  lineinfile: "dest=/etc/sudoers state=present create=yes regexp='^%wheel' line='%wheel ALL=(ALL) NOPASSWD: ALL' owner=root group=root mode=0440"
-  tags: users
+- name: sshd configured
+  notify:
+    - restart sshd
+  lineinfile: dest=/etc/ssh/sshd_config state=present regexp="{{items.regexp}}" line="{{items.line}}" insertafter="{{items.regexp}}" owner=root group=root mode=0600
+  with_items: "{{sshd_configs}}"
+  tags: sshd
+  
+- name: sshd is enabled and started
+  service: name=sshd state=started enabled=yes
+  tags: sshd
+
