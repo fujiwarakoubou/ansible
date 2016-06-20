@@ -1,2 +1,5 @@
 - name: create ssh key
   shell: ssh-keygen -t rsa -b 4096 -f ./roles/common/files/id_rsa
+
+- name: create ssh host key
+  shell: ssh-keygen -t rsa -b 4096 -N '' -f /etc/ssh/ssh_host_rsa_key

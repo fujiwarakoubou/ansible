@@ -72,9 +72,10 @@ yum -y install iproute
 ```
 docker run --privileged --name ansible_client -d ansible/centos7-ansible /sbin/init
 docker exec -it ansible_client /bin/bash
-yum --enablerepo=epel -y install sshpass 
+yum --enablerepo=epel -y install sshpass
 cd ~
 git clone https://github.com/fujiwarakoubou/ansible.git
+cd ansible
 vi hosts
 ansible-playbook -i hosts site.yml -k
 ```
@@ -82,7 +83,7 @@ ansible-playbook -i hosts site.yml -k
 * コンテナ情報の表示  
 
 ```
-docker ps -a -q
+docker ps -a
 docker inspect (コンテナ名またはコンテナID)
 ```
 
