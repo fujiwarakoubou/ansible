@@ -64,6 +64,7 @@ docker exec -it sshd_server /bin/bash
 yum -y install openssh-server
 systemctl start sshd.service
 systemctl status sshd
+yum -y install iproute
 ```
 
 * Ansible実行サーバー  (sshpassが必要）
@@ -77,6 +78,14 @@ git clone https://github.com/fujiwarakoubou/ansible.git
 vi hosts
 ansible-playbook -i hosts site.yml -k
 ```
+
+* コンテナ情報の表示  
+
+```
+docker ps -a -q
+docker inspect (コンテナ名またはコンテナID)
+```
+
 
 * Ansible実行サーバーから秘密鍵を取り出す  
 
