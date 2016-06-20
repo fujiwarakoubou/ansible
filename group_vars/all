@@ -4,7 +4,7 @@ users:
   
 sshd_configs:
   - { regexp: '^Port', line: 'Port 12234', insertafter: '#Port' }
-  - { regexp: '^PermitRootLogin', line: 'PermitRootLogin no', insertafter: '#PermitRootLogin' }
-  - { regexp: '^PasswordAuthentication', line: 'PasswordAuthentication no', insertafter: '#PasswordAuthentication' }
-  - { regexp: '^ChallengeResponseAuthentication', line: 'ChallengeResponseAuthentication no', insertafter: '#ChallengeResponseAuthentication' }
-  - { regexp: '^Protocol', line: 'Protocol 2', insertafter: '#Protocol' }
+  - { regexp: '^PermitRootLogin', line: 'PermitRootLogin no', insertafter: '#PermitRootLogin.' }
+  - { regexp: '^PasswordAuthentication', line: 'PasswordAuthentication no', insertafter: '#PasswordAuthentication.' }
+  - { regexp: '^ChallengeResponseAuthentication', line: 'ChallengeResponseAuthentication no', insertafter: '#ChallengeResponseAuthentication.' }
+  - { regexp: '^Protocol', line: 'Protocol 2', insertafter: '#Protocol.' }

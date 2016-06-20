@@ -55,15 +55,21 @@ test.yml        テスト実行モジュール
 
 DockerでAnsibleのテスト環境を構築しようとしてるときのメモ  
 
-* 環境構築させたいサーバー（sshを受信できるようにしておく）  
+* 公式イメージのダウンロード（TODO:のちのち自分ので再構築）  
 
 ```
 docker pull ansible/centos7-ansible
-docker run --privileged --name sshd_server -d ansible/centos7-ansible /sbin/init
-docker exec -it sshd_server /bin/bash
+```
+
+* 環境構築させたいサーバー（sshを受信できるようにしておく）  
+
+```
+docker run --privileged --name ansible_target -d ansible/centos7-ansible /sbin/init
+docker exec -it ansible_target /bin/bash
 yum -y install openssh-server
 systemctl start sshd.service
 systemctl status sshd
+passwd
 yum -y install iproute
 ```
 
@@ -73,6 +79,7 @@ yum -y install iproute
 docker run --privileged --name ansible_client -d ansible/centos7-ansible /sbin/init
 docker exec -it ansible_client /bin/bash
 yum --enablerepo=epel -y install sshpass
+export ANSIBLE_HOST_KEY_CHECKING=False
 cd ~
 git clone https://github.com/fujiwarakoubou/ansible.git
 cd ansible
