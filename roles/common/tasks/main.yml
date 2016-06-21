@@ -20,7 +20,7 @@
 - name: sshd configured
   notify:
     - restart sshd
-  lineinfile: dest=/etc/ssh/sshd_config state=present regexp="{{item.regexp}}" line="{{item.line}}" insertafter="{{item.regexp}}" owner=root group=root mode=0600
+  lineinfile: dest=/etc/ssh/sshd_config state=present regexp="{{item.regexp}}" insertafter="{{item.insertafter}}" line="{{item.line}}"  owner=root group=root mode=0600
   with_items: "{{sshd_configs}}"
   tags: sshd
   
