@@ -1,0 +1,7 @@
+- name: test connection (before reboot)
+  ping:
+  tags: reboot
+
+- name: reboot!
+  command: shutdown -r now
+  tags: reboot

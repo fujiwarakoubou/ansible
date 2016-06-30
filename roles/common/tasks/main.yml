@@ -1,30 +1,54 @@
+- name: yum clean all
+  shell: yum clean all
+  tags: yums
+  
+- name: yum install yum-cron
+  shell: yum -y install yum-cron
+  tags: yums
+  
+- name: yum-cron.conf is configured
+  lineinfile: dest=/etc/yum/yum-cron.conf state=present regexp="{{item.regexp}}" insertafter="{{item.insertafter}}" line="{{item.line}}"  owner=root group=root mode=0600
+  with_items: "{{yum_cron_configs}}"
+  tags: yums
+
+- name: yum-cron is started and enabled
+  service: name=yum-cron state=started enabled=yes
+  tags: yums
+
 - name: add users
-  user: name={{item.name}} state=present password={{item.password}} groups={{item.groups}}
-  with_items: "{{users}}"
+  user: name={{ user_name }} password={{ user_password }} groups=wheel state=present
   tags: users
   
-- name: sudo configured
+- name: sudo is configured
   lineinfile: "dest=/etc/sudoers state=present create=yes regexp='^%wheel' line='%wheel ALL=(ALL) NOPASSWD: ALL' owner=root group=root mode=0440"
   tags: users
 
 - name: .ssh for users
-  file: path="/home/{{item.name}}/.ssh" state=directory owner={{item.name}} group={{item.name}} mode=0700
-  with_items: "{{users}}"
+  file: path="/home/{{ user_name }}/.ssh" state=directory owner={{ user_name }} group={{ user_name }} mode=0700
   tags: ssh
 
 - name: authorized_keys for users
-  copy: src=id_rsa.pub dest="/home/{{item.name}}/.ssh/authorized_keys" owner={{item.name}} group={{item.name}} mode=0600
-  with_items: "{{users}}"
+  copy: src=id_rsa.pub dest="/home/{{ user_name }}/.ssh/authorized_keys" owner={{ user_name }} group={{ user_name }} mode=0600
   tags: ssh
 
-- name: sshd configured
+- name: sshd is started and enabled
+  service: name=sshd state=started enabled=yes
+  tags: sshd
+
+- name: sshd is configured
   notify:
     - restart sshd
   lineinfile: dest=/etc/ssh/sshd_config state=present regexp="{{item.regexp}}" insertafter="{{item.insertafter}}" line="{{item.line}}"  owner=root group=root mode=0600
   with_items: "{{sshd_configs}}"
   tags: sshd
   
-- name: sshd is enabled and started
-  service: name=sshd state=started enabled=yes
-  tags: sshd
+
+
+#- name: Check status of selinux
+#  shell: getenforce
+#  tags: selinux
+#
+#- name: Permissive selinux
+#  selinux: policy=targeted state=permissive
+#  tags: selinux
 

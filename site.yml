@@ -5,5 +5,21 @@
     - sshkeygen
 
 - hosts: servers
+  vars_prompt:
+    - name: user_name
+      prompt: Please input a user name.
+      private: no
+      when: user_name == null
+    - name: user_password
+      prompt: Please input a user password.
+      private: yes
+      confirm: yes
+      encrypt: sha512_crypt
+      salt_size: 8
+      when: user_password == null
+    - name: ssh_port
+      prompt: Please input a ssh port.
+      private: no
+      when: ssh_port == null
   roles:
     - common

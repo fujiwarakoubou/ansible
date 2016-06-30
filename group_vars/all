@@ -1,10 +1,11 @@
-# Please edit name and password(openssl passwd -1 [your password]). 
-users: 
-  - { name: 'ansible', password: '$1$5t4uR4Tk$AsupbkitiN2WaF7LeY9e1.', groups: 'wheel' }
+yum_cron_configs:
+  - { regexp: '^apply_updates', insertafter: '^#apply_updates', line: 'apply_updates = yes' }
+  - { regexp: '^update_cmd', insertafter: '^#update_cmd', line: 'update_cmd = security' }
   
 sshd_configs:
-  - { regexp: '^Port ', insertafter: '^#Port ', line: 'Port 12234' }
-  - { regexp: '^PermitRootLogin ', insertafter: '^#PermitRootLogin ', line: 'PermitRootLogin no' }
-  - { regexp: '^PasswordAuthentication ', insertafter: '^#PasswordAuthentication ', line: 'PasswordAuthentication no' }
-  - { regexp: '^ChallengeResponseAuthentication ', insertafter: '^#ChallengeResponseAuthentication ', line: 'ChallengeResponseAuthentication no' }
-  - { regexp: '^Protocol ', insertafter: '^#Protocol ', line: 'Protocol 2' }
+  - { regexp: '^Port', insertafter: '^#Port', line: 'Port {{ ssh_port }}' }
+  - { regexp: '^PermitRootLogin', insertafter: '^#PermitRootLogin', line: 'PermitRootLogin no' }
+  - { regexp: '^PasswordAuthentication', insertafter: '^#PasswordAuthentication', line: 'PasswordAuthentication no' }
+  - { regexp: '^ChallengeResponseAuthentication', insertafter: '^#ChallengeResponseAuthentication', line: 'ChallengeResponseAuthentication no' }
+  - { regexp: '^Protocol', insertafter: '^#Protocol', line: 'Protocol 2' }
+  
