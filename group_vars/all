@@ -8,4 +8,4 @@ sshd_configs:
   - { regexp: '^PasswordAuthentication', insertafter: '^#PasswordAuthentication', line: 'PasswordAuthentication no' }
   - { regexp: '^ChallengeResponseAuthentication', insertafter: '^#ChallengeResponseAuthentication', line: 'ChallengeResponseAuthentication no' }
   - { regexp: '^Protocol', insertafter: '^#Protocol', line: 'Protocol 2' }
-  
+  - { regexp: '^UsePAM', insertafter: '^#UsePAM', line: 'UsePAM no' } # TODO
