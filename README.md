@@ -11,16 +11,16 @@ Ansible練習用のサンプルリポジトリ
 ```
 # yum -y update
 # yum -y install ansible
-# yum --enablerepo=epel -y install sshpass 
+# yum --enablerepo=epel -y install sshpass python-passlib
 # git clone https://github.com/fujiwarakoubou/ansible.git
 # ansible-playbook -i hosts test.yml
 ```
 
-site.ymlの利用について、いくつか編集しないと使えません。
-
-1. hosts を初期設定したいサーバーにして下さい
-2. group_vars/all を追加するwheelユーザーにして下さい
-3. `ansible-playbook -i hosts site.yml -k`
+site.ymlを使うときは、hostsを初期設定してください
+デフォルトのアドレスはDockerのコンテナです  
+  
+UsePAMについては、yesにするとsshがつながらなく可能性が高いので、とりあえずnoにしています  
+PAM認証を無効にするのはCentOS7からは推奨されていませんが、いろいろ解決策を試してみましたが上手くいきませんでした  
 
 ディレクトリ構成
 
@@ -59,7 +59,7 @@ DockerでAnsibleのテスト環境を構築しようとしてるときのメモ
 
 ```
 docker pull fujiwarakoubou/centos7-systemd-sshd
-docker pull fujiwarakoubou/centos7-ansible-sshpass
+docker pull fujiwarakoubou/centos7-systemd-sshd-ansible
 ```
 
 * 環境構築させたいサーバー（sshを受信できるようにしておく）  
