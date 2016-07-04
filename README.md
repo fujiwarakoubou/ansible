@@ -73,10 +73,10 @@ passwd
 * Ansible実行サーバー  (sshpassが必要）
 
 ```
-docker run -it --name ansible fujiwarakoubou/centos7-ansible-sshpass
+docker run --name ansible  -d --privileged fujiwarakoubou/centos7-systemd-sshd-ansible
+docker exec  -it ansible /bin/bash
 git clone https://github.com/fujiwarakoubou/ansible.git
 cd ansible
-vi hosts
 ansible-playbook -i hosts site.yml -k
 ```
 
