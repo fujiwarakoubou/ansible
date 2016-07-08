@@ -7,8 +7,8 @@
   tags: yums
   
 - name: yum-cron.conf is configured
-  lineinfile: dest=/etc/yum/yum-cron.conf state=present regexp="{{item.regexp}}" insertafter="{{item.insertafter}}" line="{{item.line}}"  owner=root group=root mode=0600
-  with_items: "{{yum_cron_configs}}"
+  lineinfile: dest=/etc/yum/yum-cron.conf state=present regexp={{ item.regexp }} insertafter={{ item.insertafter }} line={{ item.line }}  owner=root group=root mode=0600
+  with_items: "{{ yum_cron_configs }}"
   tags: yums
 
 - name: yum-cron is started and enabled
@@ -20,15 +20,15 @@
   tags: users
   
 - name: sudo is configured
-  lineinfile: "dest=/etc/sudoers state=present create=yes regexp='^%wheel' line='%wheel ALL=(ALL) NOPASSWD: ALL' owner=root group=root mode=0440"
+  lineinfile: dest=/etc/sudoers state=present create=yes regexp="^%wheel" line="%wheel ALL=(ALL) NOPASSWD: ALL" owner=root group=root mode=0440
   tags: users
 
 - name: .ssh for users
-  file: path="/home/{{ user_name }}/.ssh" state=directory owner={{ user_name }} group={{ user_name }} mode=0700
+  file: path=/home/{{ user_name }}/.ssh state=directory owner={{ user_name }} group={{ user_name }} mode=0700
   tags: ssh
 
 - name: authorized_keys for users
-  copy: src=id_rsa.pub dest="/home/{{ user_name }}/.ssh/authorized_keys" owner={{ user_name }} group={{ user_name }} mode=0600
+  copy: src=id_rsa.pub dest=/home/{{ user_name }}/.ssh/authorized_keys owner={{ user_name }} group={{ user_name }} mode=0600
   tags: ssh
 
 - name: sshd is started and enabled
@@ -38,12 +38,19 @@
 - name: sshd is configured
   notify:
     - restart sshd
-  lineinfile: dest=/etc/ssh/sshd_config state=present regexp="{{item.regexp}}" insertafter="{{item.insertafter}}" line="{{item.line}}"  owner=root group=root mode=0600
-  with_items: "{{sshd_configs}}"
+  lineinfile: dest=/etc/ssh/sshd_config state=present regexp={{ item.regexp }} insertafter={{ item.insertafter }} line={{ item.line }}  owner=root group=root mode=0600
+  with_items: "{{ sshd_configs }}"
   tags: sshd
   
 
-
+- name: hosts.allow
+  lineinfile: dest=/etc/host.allow state=present line=sshd : ALL
+  tags: hosts
+  
+- name: hosts.deny
+  lineinfile: dest=/etc/host.deny state=present line=ALL : ALL
+  tags: hosts
+  
 #- name: Check status of selinux
 #  shell: getenforce
 #  tags: selinux

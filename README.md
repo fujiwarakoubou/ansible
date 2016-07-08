@@ -41,6 +41,7 @@ test.yml        テスト実行モジュール
 [Ansible Best Practices](http://docs.ansible.com/ansible/playbooks_best_practices.html)  
 [ansible-examples/lanmp_simple](https://github.com/ansible/ansible-examples/tree/master/lamp_simple)  
 [実践！Ansibleベストプラクティス（前編）](http://knowledge.sakura.ad.jp/tech/3084/)  
+[自分なりにあちこちからかき集めて作ったセキュアなCentOS7サーバ - Qiita:](http://qiita.com/KurokoSin/items/51e79657f1f2104cf607)  
 
 ## Licence
 
@@ -62,7 +63,7 @@ docker pull fujiwarakoubou/centos7-systemd-sshd
 docker pull fujiwarakoubou/centos7-systemd-sshd-ansible
 ```
 
-* 環境構築させたいサーバー（sshを受信できるようにしておく）  
+* 環境構築させたいサーバー
 
 ```
 docker run --name centos7 -d --privileged fujiwarakoubou/centos7-systemd-sshd
@@ -70,7 +71,7 @@ docker exec  -it centos7 /bin/bash
 passwd
 ```
 
-* Ansible実行サーバー  (sshpassが必要）
+* Ansible実行サーバー
 
 ```
 docker run --name ansible  -d --privileged fujiwarakoubou/centos7-systemd-sshd-ansible

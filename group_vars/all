@@ -4,8 +4,23 @@ yum_cron_configs:
   
 sshd_configs:
   - { regexp: '^Port', insertafter: '^#Port', line: 'Port {{ ssh_port }}' }
-  - { regexp: '^PermitRootLogin', insertafter: '^#PermitRootLogin', line: 'PermitRootLogin no' }
-  - { regexp: '^PasswordAuthentication', insertafter: '^#PasswordAuthentication', line: 'PasswordAuthentication no' }
-  - { regexp: '^ChallengeResponseAuthentication', insertafter: '^#ChallengeResponseAuthentication', line: 'ChallengeResponseAuthentication no' }
   - { regexp: '^Protocol', insertafter: '^#Protocol', line: 'Protocol 2' }
+  - { regexp: '^HostKey /etc/ssh/ssh_host_rsa_key', insertafter: '$^', line: '#HostKey /etc/ssh/ssh_host_rsa_key' }
+  - { regexp: '^HostKey /etc/ssh/ssh_host_ecdsa_key', insertafter: '$^', line: '#HostKey /etc/ssh/ssh_host_ecdsa_key' }
+  - { regexp: '^#HostKey /etc/ssh/ssh_host_ed25519_key', insertafter: '$^', line: 'HostKey /etc/ssh/ssh_host_ed25519_key' }
+  - { regexp: '^LoginGraceTime', insertafter: '^#LoginGraceTime', line: 'LoginGraceTime 10' }
+  - { regexp: '^PermitRootLogin', insertafter: '^#PermitRootLogin', line: 'PermitRootLogin no' }
+  - { regexp: '^MaxAuthTries', insertafter: '^#MaxAuthTries', line: 'MaxAuthTries 3' }
+  - { regexp: '^MaxStartups', insertafter: '^MaxAuthTries', line: 'MaxStartups 2:90:4' }
+  - { regexp: '^RSAAuthentication', insertafter: '^#RSAAuthentication', line: 'RSAAuthentication no' }
+  - { regexp: '^PubkeyAuthentication', insertafter: '^#PubkeyAuthentication', line: 'PubkeyAuthentication yes' }
+  - { regexp: '^PasswordAuthentication', insertafter: '^#PasswordAuthentication', line: 'PasswordAuthentication no' }
+  - { regexp: '^PermitEmptyPasswords', insertafter: '^#PermitEmptyPasswords', line: 'PermitEmptyPasswords no' }
+  - { regexp: '^ChallengeResponseAuthentication', insertafter: '^#ChallengeResponseAuthentication', line: 'ChallengeResponseAuthentication no' }
+  - { regexp: '^GSSAPIAuthentication', insertafter: '^#GSSAPIAuthentication', line: 'GSSAPIAuthentication no' }
+  - { regexp: '^GSSAPICleanupCredentials', insertafter: '^#GSSAPICleanupCredentials', line: 'GSSAPICleanupCredentials no' }
   - { regexp: '^UsePAM', insertafter: '^#UsePAM', line: 'UsePAM no' } # TODO
+  - { regexp: '^AllowUsers', insertafter: '^#AllowUsers', line: 'AllowUsers {{ user_name }}' }
+  - { regexp: '^X11Forwarding', insertafter: '^#X11Forwarding', line: 'X11Forwarding no' }
+  - { regexp: '^PermitTTY', insertafter: '^#PermitTTY', line: 'PermitTTY no' }
+  - { regexp: '^UseDNS', insertafter: '^#UseDNS', line: 'UseDNS no' }
