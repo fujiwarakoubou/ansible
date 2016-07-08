@@ -27,3 +27,9 @@ sshd_configs:
   - { regexp: '^X11Forwarding', insertafter: '^#X11Forwarding', line: 'X11Forwarding no' }
   - { regexp: '^PermitTTY', insertafter: '^#PermitTTY', line: 'PermitTTY no' }
   - { regexp: '^UseDNS', insertafter: '^#UseDNS', line: 'UseDNS no' }
+  
+hosts_allows:
+  - { regexp: '$^', insertafter: '$^', line: 'sshd : ALL' }
+  
+hosts_denys:
+  - { regexp: '$^', insertafter: '$^', line: 'ALL : ALL' }

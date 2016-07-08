@@ -45,11 +45,13 @@
   
 
 - name: hosts.allow
-  lineinfile: dest=/etc/host.allow state=present line='sshd : ALL'
+  lineinfile: dest=/etc/hosts.allow state=present regexp={{ item.regexp }} insertafter={{ item.insertafter }} line={{ item.line }}
+  with_items: "{{ hosts_allows }}"
   tags: hosts
   
 - name: hosts.deny
-  lineinfile: dest=/etc/host.deny state=present line='ALL : ALL'
+  lineinfile: dest=/etc/hosts.deny state=present regexp={{ item.regexp }} insertafter={{ item.insertafter }} line={{ item.line }}
+  with_items: "{{ hosts_denys }}"
   tags: hosts
   
 #- name: Check status of selinux
