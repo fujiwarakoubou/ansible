@@ -45,11 +45,11 @@
   
 
 - name: hosts.allow
-  lineinfile: dest=/etc/host.allow state=present line=sshd : ALL
+  lineinfile: dest=/etc/host.allow state=present line='sshd : ALL'
   tags: hosts
   
 - name: hosts.deny
-  lineinfile: dest=/etc/host.deny state=present line=ALL : ALL
+  lineinfile: dest=/etc/host.deny state=present line='ALL : ALL'
   tags: hosts
   
 #- name: Check status of selinux
