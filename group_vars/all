@@ -2,6 +2,9 @@ yum_cron_configs:
   - { regexp: '^apply_updates', insertafter: '^#apply_updates', line: 'apply_updates = yes' }
   - { regexp: '^update_cmd', insertafter: '^#update_cmd', line: 'update_cmd = security' }
   
+sudoers:
+  - { regexp: '^%wheel', insertafter: '^#%wheel', line: '%wheel ALL=(ALL) NOPASSWD: ALL' }
+  
 sshd_configs:
   - { regexp: '^Port', insertafter: '^#Port', line: 'Port {{ ssh_port }}' }
   - { regexp: '^Protocol', insertafter: '^#Protocol', line: 'Protocol 2' }

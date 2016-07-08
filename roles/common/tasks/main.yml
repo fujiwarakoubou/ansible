@@ -20,7 +20,8 @@
   tags: users
   
 - name: sudo is configured
-  lineinfile: dest=/etc/sudoers state=present create=yes regexp="^%wheel" line="%wheel ALL=(ALL) NOPASSWD: ALL" owner=root group=root mode=0440
+  lineinfile: dest=/etc/sudoers state=present create=yes regexp={{ item.regexp }} insertafter={{ item.insertafter }} line={{ item.line }} owner=root group=root mode=0440
+  with_items: "{{ sudoers }}"
   tags: users
 
 - name: .ssh for users
