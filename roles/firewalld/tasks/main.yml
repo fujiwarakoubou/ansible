@@ -8,30 +8,30 @@
   shell: firewall-cmd --list-all --zone={{ result.stdout }}
   tags: firewalld
 
-- name: ”jŠüİ’è
+- name: ç ´æ£„è¨­å®š
   shell: {{ item }}
   tags: firewalld
   with_items:
-    # ’Êí‚Ìsshƒ|[ƒg‚ÍÇ‚®
+    # é€šå¸¸ã®sshãƒãƒ¼ãƒˆã¯å¡ã
     - firewall-cmd --remove-service=ssh --permanent
-    # ƒf[ƒ^‚ğ‚½‚È‚¢ƒpƒPƒbƒg‚ÌÚ‘±‚ğ”jŠü‚·‚é
+    # ãƒ‡ãƒ¼ã‚¿ã‚’æŒãŸãªã„ãƒ‘ã‚±ãƒƒãƒˆã®æ¥ç¶šã‚’ç ´æ£„ã™ã‚‹
     - firewall-cmd  --permanent --direct --add-rule ipv4 filter INPUT 0 -p tcp --tcp-flags ALL NONE -j DROP
-    # SYNfloodUŒ‚‚Æv‚í‚ê‚éÚ‘±‚ğ”jŠü‚·‚é
+    # SYNfloodæ”»æ’ƒã¨æ€ã‚ã‚Œã‚‹æ¥ç¶šã‚’ç ´æ£„ã™ã‚‹
     - firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -p tcp ! --syn -m state --state NEW -j DROP
-    # ƒXƒeƒ‹ƒXƒXƒLƒƒƒ“‚Æv‚í‚ê‚éÚ‘±‚ğ”jŠü‚·‚é
+    # ã‚¹ãƒ†ãƒ«ã‚¹ã‚¹ã‚­ãƒ£ãƒ³ã¨æ€ã‚ã‚Œã‚‹æ¥ç¶šã‚’ç ´æ£„ã™ã‚‹
     - firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -p tcp --tcp-flags ALL ALL -j DROP
-    # ƒuƒ[ƒhƒLƒƒƒXƒgƒAƒhƒŒƒX‚ğ”jŠü‚·‚é
+    # ãƒ–ãƒ­ãƒ¼ãƒ‰ã‚­ãƒ£ã‚¹ãƒˆã‚¢ãƒ‰ãƒ¬ã‚¹ã‚’ç ´æ£„ã™ã‚‹
     - firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -m pkttype --pkt-type broadcast -j DROP
-    # ƒ}ƒ‹ƒ`ƒLƒƒƒXƒgƒAƒhƒŒƒX‚ğ”jŠü‚·‚é
+    # ãƒãƒ«ãƒã‚­ãƒ£ã‚¹ãƒˆã‚¢ãƒ‰ãƒ¬ã‚¹ã‚’ç ´æ£„ã™ã‚‹
     - firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -m pkttype --pkt-type multicast -j DROP 
-    # IP Spoofing(‚È‚è‚·‚Ü‚µ) ‚Ì‘Î‰(ŠO•”‚©‚ç‚â‚Á‚Ä‚­‚éƒ[ƒJƒ‹IP‚Í”jŠü)
+    # IP Spoofing(ãªã‚Šã™ã¾ã—) ã®å¯¾å¿œ(å¤–éƒ¨ã‹ã‚‰ã‚„ã£ã¦ãã‚‹ãƒ­ãƒ¼ã‚«ãƒ«IPã¯ç ´æ£„)
     - firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -i enp0s3 -s 127.0.0.1/8 -j DROP
-    - firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -i enp0s3 -s 10.0.0.0/8 -j DROP #ŠJ”­ŠÂ‹«‚Å‚Í‹–‰Â
+    - firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -i enp0s3 -s 10.0.0.0/8 -j DROP #é–‹ç™ºç’°å¢ƒã§ã¯è¨±å¯
     - firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -i enp0s3 -s 172.16.0.0/12 -j DROP
-    # firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -i enp0s3 -s 192.168.0.0/16 -j DROP  #ŠJ”­ŠÂ‹«‚Å‚Í‹–‰Â
-    # firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -i enp0s3 -s 192.168.0.0/24  -j DROP #ŠJ”­ŠÂ‹«‚Å‚Í‹–‰Â
-    # Ping of Death UŒ‚‘Îôifirewall-cmd‚ÉC³‚·‚é‚Ì‚ª‚ß‚ñ‚Ç‚­‚È‚Á‚½‚Ì‚ÅŠ„ˆ¤BQlƒTƒCƒg‚ğQÆ‚µ‚Ä‚­‚¾‚³‚¢Bj
-    # Ping‚É•s—v‚Èicmpƒ^ƒCƒv‚ÌƒuƒƒbƒN(echo-requestAecho-reply ˆÈŠO)
+    # firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -i enp0s3 -s 192.168.0.0/16 -j DROP  #é–‹ç™ºç’°å¢ƒã§ã¯è¨±å¯
+    # firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -i enp0s3 -s 192.168.0.0/24  -j DROP #é–‹ç™ºç’°å¢ƒã§ã¯è¨±å¯
+    # Ping of Death æ”»æ’ƒå¯¾ç­–ï¼ˆfirewall-cmdã«ä¿®æ­£ã™ã‚‹ã®ãŒã‚ã‚“ã©ããªã£ãŸã®ã§å‰²æ„›ã€‚å‚è€ƒã‚µã‚¤ãƒˆã‚’å‚ç…§ã—ã¦ãã ã•ã„ã€‚ï¼‰
+    # Pingã«ä¸è¦ãªicmpã‚¿ã‚¤ãƒ—ã®ãƒ–ãƒ­ãƒƒã‚¯(echo-requestã€echo-reply ä»¥å¤–)
     - firewall-cmd --permanent --add-icmp-block=destination-unreachable
     - firewall-cmd --permanent --add-icmp-block=parameter-problem
     - firewall-cmd --permanent --add-icmp-block=redirect
@@ -39,16 +39,16 @@
     - firewall-cmd --permanent --add-icmp-block=router-solicitation
     - firewall-cmd --permanent --add-icmp-block=source-quench
     - firewall-cmd --permanent --add-icmp-block=time-exceeded
-    # invalid ƒpƒPƒbƒg‚ğ”jŠü
+    # invalid ãƒ‘ã‚±ãƒƒãƒˆã‚’ç ´æ£„
     - firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -m state --state INVALID -j DROP
     - firewall-cmd --permanent --direct --add-rule ipv4 filter FORWARD 0 -m state --state INVALID -j DROP
     - firewall-cmd --permanent --direct --add-rule ipv4 filter OUTPUT 0 -m state --state INVALID -j DROP
 
-- name: ğŒ•t‚«‚Å‹–‰Â
+- name: æ¡ä»¶ä»˜ãã§è¨±å¯
   shell: {{ item }}
   tags: firewalld
   with_items:
-    # Ping FloodUŒ‚‘Îôi4‰ñˆÈãping‚ğóM‚µ‚½ê‡AˆÈ~‚Í1•bŠÔ‚É1“x‚¾‚¯‹–‰Â‚µ‚Ü‚·Bj
+    # Ping Floodæ”»æ’ƒå¯¾ç­–ï¼ˆ4å›ä»¥ä¸Špingã‚’å—ä¿¡ã—ãŸå ´åˆã€ä»¥é™ã¯1ç§’é–“ã«1åº¦ã ã‘è¨±å¯ã—ã¾ã™ã€‚ï¼‰
     - firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -p icmp --icmp-type 8 -m length --length :85 -m limit --limit 1/s --limit-burst 4 -j ACCEPT
     # flooding of RST packets, smurf attack Rejection
     - firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -p tcp -m tcp --tcp-flags RST RST -m limit --limit 2/second --limit-burst 2 -j ACCEPT
@@ -60,19 +60,19 @@
     - firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -m recent --name portscan --remove
     - firewall-cmd --permanent --direct --add-rule ipv4 filter FORWARD  0 -m recent --name portscan --remove
 
-- name: ‹–‰Â
+- name: è¨±å¯
   shell: {{ item }}
   tags: firewalld
   with_items:
-    - firewall-cmd --add-port=49152/tcp --permanent  # 49152”Ô‚Ì’ÊM‹–‰Â(‚±‚ÌƒT[ƒo‚Ìssh‚Ìƒ|[ƒg”Ô†j
+    - firewall-cmd --add-port=49152/tcp --permanent  # 49152ç•ªã®é€šä¿¡è¨±å¯(ã“ã®ã‚µãƒ¼ãƒã®sshã®ãƒãƒ¼ãƒˆç•ªå·ï¼‰
 
-- name: ƒ‹[ƒ‹‚É“–‚Ä‚Í‚Ü‚ç‚È‚¢óM‚ğ”jŠü(‚±‚ê‚ÅAINPUTAFORWARD—¼•û‚ÉDROP)
+- name: ãƒ«ãƒ¼ãƒ«ã«å½“ã¦ã¯ã¾ã‚‰ãªã„å—ä¿¡ã‚’ç ´æ£„(ã“ã‚Œã§ã€INPUTã€FORWARDä¸¡æ–¹ã«DROP)
   shell: {{ item }}
   tags: firewalld
   with_items:
     - firewall-cmd --permanent --zone=public --set-target=DROP
 
-- name: İ’è”½‰f
+- name: è¨­å®šåæ˜ 
   shell: {{ item }}
   tags: firewalld
   with_items:
