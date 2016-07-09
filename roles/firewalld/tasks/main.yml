@@ -1,14 +1,5 @@
 ---
-- name: Check firewalld zone
-  shell: firewall-cmd --get-default-zone
-  register: result
-  tags: firewalld
-  
-- name: Check firewalld zone list
-  shell: firewall-cmd --list-all --zone={{ result.stdout }}
-  tags: firewalld
-
-- name: 破棄設定
+- name: setting DROP
   shell: "{{ item }}"
   tags: firewalld
   with_items:
@@ -44,7 +35,7 @@
     - firewall-cmd --permanent --direct --add-rule ipv4 filter FORWARD 0 -m state --state INVALID -j DROP
     - firewall-cmd --permanent --direct --add-rule ipv4 filter OUTPUT 0 -m state --state INVALID -j DROP
 
-- name: 条件付きで許可
+- name: setting INPUT with a rule
   shell: "{{ item }}"
   tags: firewalld
   with_items:
@@ -60,24 +51,21 @@
     - firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -m recent --name portscan --remove
     - firewall-cmd --permanent --direct --add-rule ipv4 filter FORWARD  0 -m recent --name portscan --remove
 
-- name: 許可
+- name: setting INPUT
   shell: "{{ item }}"
   tags: firewalld
   with_items:
-    - firewall-cmd --add-port=49152/tcp --permanent  # 49152番の通信許可(このサーバのsshのポート番号）
+    - firewall-cmd --add-port={{ ssh_port }}/tcp --permanent 
 
-- name: ルールに当てはまらない受信を破棄(これで、INPUT、FORWARD両方にDROP)
+- name: set rule to public
   shell: "{{ item }}"
   tags: firewalld
   with_items:
     - firewall-cmd --permanent --zone=public --set-target=DROP
 
-- name: 設定反映
+- name: reload firewalld
   shell: "{{ item }}"
   tags: firewalld
   with_items:
     - firewall-cmd --reload
     
-- name: Check firewalld zone list
-  shell: firewall-cmd --list-all --zone={{ result.stdout }}
-  tags: firewalld

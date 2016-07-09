@@ -66,7 +66,7 @@ docker pull fujiwarakoubou/centos7-systemd-sshd-ansible
 * 環境構築させたいサーバー
 
 ```
-docker run --name centos7 -d --privileged fujiwarakoubou/centos7-systemd-sshd
+docker run --name centos7 -d --privileged fujiwarakoubou/centos7-systemd-sshd-firewalld
 docker exec  -it centos7 /bin/bash
 passwd
 ```
