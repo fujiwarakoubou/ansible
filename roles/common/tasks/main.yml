@@ -29,7 +29,7 @@
   tags: ssh
 
 - name: authorized_keys for users
-  copy: src=id_rsa.pub dest=/home/{{ user_name }}/.ssh/authorized_keys owner={{ user_name }} group={{ user_name }} mode=0600
+  copy: src=id_ed25519.pub dest=/home/{{ user_name }}/.ssh/authorized_keys owner={{ user_name }} group={{ user_name }} mode=0600
   tags: ssh
 
 - name: sshd is started and enabled
