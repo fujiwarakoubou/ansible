@@ -1,11 +1,11 @@
 ---
 - name: setting DROP
-  shell: {{ item }}
+  shell: "{{ item }}"
   tags: firewalld
   with_items: "{{ firewalld_drops }}"
   
 - name: setting INPUT
-  shell: {{ item }}
+  shell: "{{ item }}"
   tags: firewalld
   with_items: "{{ firewalld_inputs }}"
 
