@@ -6,26 +6,42 @@ sudoers:
   - { regexp: '^%wheel', insertafter: '^#%wheel', line: '%wheel ALL=(ALL) NOPASSWD: ALL' }
   
 sshd_configs:
+# ssh標準の番号を使わない(自由に使えるポート番号 = 49152～65535 )
   - { regexp: '^Port', insertafter: '^#Port', line: 'Port {{ ssh_port }}' }
+# Protocol 1 は使わない（Protocol 1で繋ぐソフトを使用する予定が一切無い）
   - { regexp: '^Protocol', insertafter: '^#Protocol', line: 'Protocol 2' }
+# ed25519の鍵だけ有効にする
   - { regexp: '^HostKey /etc/ssh/ssh_host_rsa_key', insertafter: '$^', line: '#HostKey /etc/ssh/ssh_host_rsa_key' }
   - { regexp: '^HostKey /etc/ssh/ssh_host_ecdsa_key', insertafter: '$^', line: '#HostKey /etc/ssh/ssh_host_ecdsa_key' }
   - { regexp: '^#HostKey /etc/ssh/ssh_host_ed25519_key', insertafter: '$^', line: 'HostKey /etc/ssh/ssh_host_ed25519_key' }
+# コネクションを貼って認証するまでの猶予時間(s)
   - { regexp: '^LoginGraceTime', insertafter: '^#LoginGraceTime', line: 'LoginGraceTime 10' }
+# rootユーザがsshでログインできないようにする
   - { regexp: '^PermitRootLogin', insertafter: '^#PermitRootLogin', line: 'PermitRootLogin no' }
+# 最大認証試行回数
   - { regexp: '^MaxAuthTries', insertafter: '^#MaxAuthTries', line: 'MaxAuthTries 3' }
+# 2つを超える認証受付は90%の確率で遮断。4つを超えると全て遮断
   - { regexp: '^MaxStartups', insertafter: '^MaxAuthTries', line: 'MaxStartups 2:90:4' }
+# おそらくProtocol 1の時代専用パラメータ
   - { regexp: '^RSAAuthentication', insertafter: '^#RSAAuthentication', line: 'RSAAuthentication no' }
+# 鍵認証によるログインを許可
   - { regexp: '^PubkeyAuthentication', insertafter: '^#PubkeyAuthentication', line: 'PubkeyAuthentication yes' }
+# パスワードによるログイン禁止
   - { regexp: '^PasswordAuthentication', insertafter: '^#PasswordAuthentication', line: 'PasswordAuthentication no' }
+# 空のパスワード設定は接続拒否
   - { regexp: '^PermitEmptyPasswords', insertafter: '^#PermitEmptyPasswords', line: 'PermitEmptyPasswords no' }
+# チャレンジレスポンスによるログイン禁止
   - { regexp: '^ChallengeResponseAuthentication', insertafter: '^#ChallengeResponseAuthentication', line: 'ChallengeResponseAuthentication no' }
+# シングルサインオンの設定（GSSAPI options）　使用予定無し
   - { regexp: '^GSSAPIAuthentication', insertafter: '^#GSSAPIAuthentication', line: 'GSSAPIAuthentication no' }
   - { regexp: '^GSSAPICleanupCredentials', insertafter: '^#GSSAPICleanupCredentials', line: 'GSSAPICleanupCredentials no' }
-  - { regexp: '^UsePAM', insertafter: '^#UsePAM', line: 'UsePAM no' } # TODO
+# TODO yesにするとsshがつながらない（dockerコンテナ環境）
+  - { regexp: '^UsePAM', insertafter: '^#UsePAM', line: 'UsePAM no' } 
+# 接続できるユーザの制限
   - { regexp: '^AllowUsers', insertafter: '^#AllowUsers', line: 'AllowUsers {{ user_name }}' }
+# GUIでサーバを操作しない
   - { regexp: '^X11Forwarding', insertafter: '^#X11Forwarding', line: 'X11Forwarding no' }
-  - { regexp: '^PermitTTY', insertafter: '^#PermitTTY', line: 'PermitTTY no' }
+# IPアドレスを使用して接続するため、FQDNの検索にかかる待機時間を無くす。
   - { regexp: '^UseDNS', insertafter: '^#UseDNS', line: 'UseDNS no' }
   
 hosts_allows:
@@ -33,3 +49,54 @@ hosts_allows:
   
 hosts_denys:
   - { regexp: '$^', insertafter: '$^', line: 'ALL : ALL' }
+  
+firewalld_drops:
+# 通常のsshポートは塞ぐ
+  - { firewall-cmd --permanent --remove-service=ssh }
+# ipv6も塞いでおく TODO
+  - { firewall-cmd --permanent --remove-service=dhcpv6-client }
+# データを持たないパケットの接続を破棄する
+  - { firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -p tcp --tcp-flags ALL NONE -j DROP }
+# SYNflood攻撃と思われる接続を破棄する
+  - { firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -p tcp ! --syn -m state --state NEW -j DROP }
+# ステルススキャンと思われる接続を破棄する
+  - { firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -p tcp --tcp-flags ALL ALL -j DROP }
+# ブロードキャストアドレスを破棄する
+  - { firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -m pkttype --pkt-type broadcast -j DROP }
+# マルチキャストアドレスを破棄する
+  - { firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -m pkttype --pkt-type multicast -j DROP  }
+# IP Spoofing(なりすまし) の対応(外部からやってくるローカルIPは破棄)
+  - { firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -i enp0s3 -s 127.0.0.1/8 -j DROP }
+  - { firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -i enp0s3 -s 10.0.0.0/8 -j DROP } #開発環境では許可
+  - { firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -i enp0s3 -s 172.16.0.0/12 -j DROP }
+# firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -i enp0s3 -s 192.168.0.0/16 -j DROP }  #開発環境では許可
+# firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -i enp0s3 -s 192.168.0.0/24  -j DROP } #開発環境では許可
+# Ping of Death 攻撃対策（firewall-cmdに修正するのがめんどくなったので割愛。参考サイトを参照してください。）
+# Pingに不要なicmpタイプのブロック(echo-request、echo-reply 以外)
+  - { firewall-cmd --permanent --add-icmp-block=destination-unreachable }
+  - { firewall-cmd --permanent --add-icmp-block=parameter-problem }
+  - { firewall-cmd --permanent --add-icmp-block=redirect }
+  - { firewall-cmd --permanent --add-icmp-block=router-advertisement }
+  - { firewall-cmd --permanent --add-icmp-block=router-solicitation }
+  - { firewall-cmd --permanent --add-icmp-block=source-quench }
+  - { firewall-cmd --permanent --add-icmp-block=time-exceeded }
+# invalid パケットを破棄
+  - { firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -m state --state INVALID -j DROP }
+  - { firewall-cmd --permanent --direct --add-rule ipv4 filter FORWARD 0 -m state --state INVALID -j DROP }
+  - { firewall-cmd --permanent --direct --add-rule ipv4 filter OUTPUT 0 -m state --state INVALID -j DROP }
+  
+firewalld_inputs:
+# Ping Flood攻撃対策（4回以上pingを受信した場合、以降は1秒間に1度だけ許可します。）
+  - { firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -p icmp --icmp-type 8 -m length --length :85 -m limit --limit 1/s --limit-burst 4 -j ACCEPT }
+# flooding of RST packets, smurf attack Rejection
+  - { firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -p tcp -m tcp --tcp-flags RST RST -m limit --limit 2/second --limit-burst 2 -j ACCEPT }
+# Protecting portscans
+# Attacking IP will be locked for 24 hours (3600 x 24 = 86400 Seconds)
+  - { firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -m recent --name portscan --rcheck --seconds 86400 -j DROP }
+  - { firewall-cmd --permanent --direct --add-rule ipv4 filter FORWARD 0 -m recent --name portscan --rcheck --seconds 86400 -j DROP }
+#Remove attacking IP after 24 hours
+  - { firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -m recent --name portscan --remove }
+  - { firewall-cmd --permanent --direct --add-rule ipv4 filter FORWARD  0 -m recent --name portscan --remove }
+  
+firewalld_ports:
+  - { firewall-cmd --add-port={{ ssh_port }}/tcp --permanent }

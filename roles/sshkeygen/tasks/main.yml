@@ -1,2 +1,2 @@
 - name: create ssh key
-  shell: ssh-keygen -t ed25519 -f ./roles/common/files/id_rsa
+  shell: ssh-keygen -t ed25519 -f ./roles/common/files/id_ed25519
