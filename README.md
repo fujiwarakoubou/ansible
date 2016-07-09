@@ -2,7 +2,9 @@
 
 Ansible練習用のサンプルリポジトリ  
 さくらVPSのCentOS7に特化したものを目指してる（まだDockerのcentos7コンテナでしか確認できてないです）  
-まだまだ未完成です  
+コンテナでの実験には成功しましたが、UsePAMがコンテナの影響なのか、yesにするとsshにつながらない問題があります  
+もし利用するならば、hostsを環境に合わせて修正してください  
+デフォルトのアドレスはDockerのコンテナです  
 
 ## Usage
 
@@ -15,12 +17,6 @@ Ansible練習用のサンプルリポジトリ
 # git clone https://github.com/fujiwarakoubou/ansible.git
 # ansible-playbook -i hosts test.yml
 ```
-
-site.ymlを使うときは、hostsを初期設定してください
-デフォルトのアドレスはDockerのコンテナです  
-  
-UsePAMについては、yesにするとsshがつながらなく可能性が高いので、とりあえずnoにしています  
-PAM認証を無効にするのはCentOS7からは推奨されていませんが、いろいろ解決策を試してみましたが上手くいきませんでした  
 
 ディレクトリ構成
 
