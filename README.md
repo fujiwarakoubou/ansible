@@ -69,6 +69,7 @@ docker pull fujiwarakoubou/centos7-systemd-sshd-ansible
 docker run --name centos7 -d --privileged fujiwarakoubou/centos7-systemd-sshd-firewalld
 docker exec  -it centos7 /bin/bash
 passwd
+firewall-cmd --permanent --zone=public --change-interface=eth0
 ```
 
 * Ansible実行サーバー

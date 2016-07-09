@@ -4,9 +4,11 @@
   tags: firewalld
   with_items:
     # 通常のsshポートは塞ぐ
-    - firewall-cmd --remove-service=ssh --permanent
+    - firewall-cmd --permanent --remove-service=ssh 
+    # ipv6も塞いでおく TODO
+    - firewall-cmd --permanent --remove-service=dhcpv6-client
     # データを持たないパケットの接続を破棄する
-    - firewall-cmd  --permanent --direct --add-rule ipv4 filter INPUT 0 -p tcp --tcp-flags ALL NONE -j DROP
+    - firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -p tcp --tcp-flags ALL NONE -j DROP
     # SYNflood攻撃と思われる接続を破棄する
     - firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -p tcp ! --syn -m state --state NEW -j DROP
     # ステルススキャンと思われる接続を破棄する
