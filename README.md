@@ -34,10 +34,10 @@ test.yml        テスト実行モジュール
 
 ## Relation
 
-[Ansible Best Practices](http://docs.ansible.com/ansible/playbooks_best_practices.html)  
-[ansible-examples/lanmp_simple](https://github.com/ansible/ansible-examples/tree/master/lamp_simple)  
-[実践！Ansibleベストプラクティス（前編）](http://knowledge.sakura.ad.jp/tech/3084/)  
-[自分なりにあちこちからかき集めて作ったセキュアなCentOS7サーバ - Qiita:](http://qiita.com/KurokoSin/items/51e79657f1f2104cf607)  
+[Best Practices — Ansible Documentation](http://docs.ansible.com/ansible/playbooks_best_practices.html)  
+[ansible-examples/lamp_simple at master · ansible/ansible-examples](https://github.com/ansible/ansible-examples/tree/master/lamp_simple)  
+[実践！Ansibleベストプラクティス（前編） - さくらのナレッジ](http://knowledge.sakura.ad.jp/tech/3084/)  
+[自分なりにあちこちからかき集めて作ったセキュアなCentOS7サーバ - Qiita](http://qiita.com/KurokoSin/items/51e79657f1f2104cf607)  
 
 ## Licence
 
@@ -82,7 +82,6 @@ ansible-playbook -i hosts site.yml -k
 * コンテナ情報の表示  
 
 ```
-docker ps -a
 docker inspect (コンテナ名またはコンテナID)
 ```
 
@@ -90,6 +89,6 @@ docker inspect (コンテナ名またはコンテナID)
 * Ansible実行サーバーから秘密鍵を取り出す  
 
 ```
-docker cp ansible_client:~/roles/common/files/id_rsa
+docker cp ansible:~/roles/common/files/id_ed25519
 ```
 
