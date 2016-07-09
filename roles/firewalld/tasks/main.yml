@@ -18,6 +18,6 @@
   tags: firewalld
 
 - name: reload firewalld
-  shell: - firewall-cmd --reload
+  shell: firewall-cmd --reload
   tags: firewalld
     
