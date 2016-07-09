@@ -6,42 +6,42 @@ sudoers:
   - { regexp: '^%wheel', insertafter: '^#%wheel', line: '%wheel ALL=(ALL) NOPASSWD: ALL' }
   
 sshd_configs:
-# ssh•W€‚Ì”Ô†‚ğg‚í‚È‚¢(©—R‚Ég‚¦‚éƒ|[ƒg”Ô† = 49152`65535 )
+# sshæ¨™æº–ã®ç•ªå·ã‚’ä½¿ã‚ãªã„(è‡ªç”±ã«ä½¿ãˆã‚‹ãƒãƒ¼ãƒˆç•ªå· = 49152ï½65535 )
   - { regexp: '^Port', insertafter: '^#Port', line: 'Port {{ ssh_port }}' }
-# Protocol 1 ‚Íg‚í‚È‚¢iProtocol 1‚ÅŒq‚®ƒ\ƒtƒg‚ğg—p‚·‚é—\’è‚ªˆêØ–³‚¢j
+# Protocol 1 ã¯ä½¿ã‚ãªã„ï¼ˆProtocol 1ã§ç¹‹ãã‚½ãƒ•ãƒˆã‚’ä½¿ç”¨ã™ã‚‹äºˆå®šãŒä¸€åˆ‡ç„¡ã„ï¼‰
   - { regexp: '^Protocol', insertafter: '^#Protocol', line: 'Protocol 2' }
-# ed25519‚ÌŒ®‚¾‚¯—LŒø‚É‚·‚é
+# ed25519ã®éµã ã‘æœ‰åŠ¹ã«ã™ã‚‹
   - { regexp: '^HostKey /etc/ssh/ssh_host_rsa_key', insertafter: '$^', line: '#HostKey /etc/ssh/ssh_host_rsa_key' }
   - { regexp: '^HostKey /etc/ssh/ssh_host_ecdsa_key', insertafter: '$^', line: '#HostKey /etc/ssh/ssh_host_ecdsa_key' }
   - { regexp: '^#HostKey /etc/ssh/ssh_host_ed25519_key', insertafter: '$^', line: 'HostKey /etc/ssh/ssh_host_ed25519_key' }
-# ƒRƒlƒNƒVƒ‡ƒ“‚ğ“\‚Á‚Ä”FØ‚·‚é‚Ü‚Å‚Ì—P—\ŠÔ(s)
+# ã‚³ãƒã‚¯ã‚·ãƒ§ãƒ³ã‚’è²¼ã£ã¦èªè¨¼ã™ã‚‹ã¾ã§ã®çŒ¶äºˆæ™‚é–“(s)
   - { regexp: '^LoginGraceTime', insertafter: '^#LoginGraceTime', line: 'LoginGraceTime 10' }
-# rootƒ†[ƒU‚ªssh‚ÅƒƒOƒCƒ“‚Å‚«‚È‚¢‚æ‚¤‚É‚·‚é
+# rootãƒ¦ãƒ¼ã‚¶ãŒsshã§ãƒ­ã‚°ã‚¤ãƒ³ã§ããªã„ã‚ˆã†ã«ã™ã‚‹
   - { regexp: '^PermitRootLogin', insertafter: '^#PermitRootLogin', line: 'PermitRootLogin no' }
-# Å‘å”FØs‰ñ”
+# æœ€å¤§èªè¨¼è©¦è¡Œå›æ•°
   - { regexp: '^MaxAuthTries', insertafter: '^#MaxAuthTries', line: 'MaxAuthTries 3' }
-# 2‚Â‚ğ’´‚¦‚é”FØó•t‚Í90%‚ÌŠm—¦‚ÅÕ’fB4‚Â‚ğ’´‚¦‚é‚Æ‘S‚ÄÕ’f
+# 2ã¤ã‚’è¶…ãˆã‚‹èªè¨¼å—ä»˜ã¯90%ã®ç¢ºç‡ã§é®æ–­ã€‚4ã¤ã‚’è¶…ãˆã‚‹ã¨å…¨ã¦é®æ–­
   - { regexp: '^MaxStartups', insertafter: '^MaxAuthTries', line: 'MaxStartups 2:90:4' }
-# ‚¨‚»‚ç‚­Protocol 1‚Ì‘ãê—pƒpƒ‰ƒ[ƒ^
+# ãŠãã‚‰ãProtocol 1ã®æ™‚ä»£å°‚ç”¨ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿
   - { regexp: '^RSAAuthentication', insertafter: '^#RSAAuthentication', line: 'RSAAuthentication no' }
-# Œ®”FØ‚É‚æ‚éƒƒOƒCƒ“‚ğ‹–‰Â
+# éµèªè¨¼ã«ã‚ˆã‚‹ãƒ­ã‚°ã‚¤ãƒ³ã‚’è¨±å¯
   - { regexp: '^PubkeyAuthentication', insertafter: '^#PubkeyAuthentication', line: 'PubkeyAuthentication yes' }
-# ƒpƒXƒ[ƒh‚É‚æ‚éƒƒOƒCƒ“‹Ö~
+# ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ã«ã‚ˆã‚‹ãƒ­ã‚°ã‚¤ãƒ³ç¦æ­¢
   - { regexp: '^PasswordAuthentication', insertafter: '^#PasswordAuthentication', line: 'PasswordAuthentication no' }
-# ‹ó‚ÌƒpƒXƒ[ƒhİ’è‚ÍÚ‘±‹‘”Û
+# ç©ºã®ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰è¨­å®šã¯æ¥ç¶šæ‹’å¦
   - { regexp: '^PermitEmptyPasswords', insertafter: '^#PermitEmptyPasswords', line: 'PermitEmptyPasswords no' }
-# ƒ`ƒƒƒŒƒ“ƒWƒŒƒXƒ|ƒ“ƒX‚É‚æ‚éƒƒOƒCƒ“‹Ö~
+# ãƒãƒ£ãƒ¬ãƒ³ã‚¸ãƒ¬ã‚¹ãƒãƒ³ã‚¹ã«ã‚ˆã‚‹ãƒ­ã‚°ã‚¤ãƒ³ç¦æ­¢
   - { regexp: '^ChallengeResponseAuthentication', insertafter: '^#ChallengeResponseAuthentication', line: 'ChallengeResponseAuthentication no' }
-# ƒVƒ“ƒOƒ‹ƒTƒCƒ“ƒIƒ“‚Ìİ’èiGSSAPI optionsj@g—p—\’è–³‚µ
+# ã‚·ãƒ³ã‚°ãƒ«ã‚µã‚¤ãƒ³ã‚ªãƒ³ã®è¨­å®šï¼ˆGSSAPI optionsï¼‰ã€€ä½¿ç”¨äºˆå®šç„¡ã—
   - { regexp: '^GSSAPIAuthentication', insertafter: '^#GSSAPIAuthentication', line: 'GSSAPIAuthentication no' }
   - { regexp: '^GSSAPICleanupCredentials', insertafter: '^#GSSAPICleanupCredentials', line: 'GSSAPICleanupCredentials no' }
-# TODO yes‚É‚·‚é‚Æssh‚ª‚Â‚È‚ª‚ç‚È‚¢idockerƒRƒ“ƒeƒiŠÂ‹«j
+# TODO yesã«ã™ã‚‹ã¨sshãŒã¤ãªãŒã‚‰ãªã„ï¼ˆdockerã‚³ãƒ³ãƒ†ãƒŠç’°å¢ƒï¼‰
   - { regexp: '^UsePAM', insertafter: '^#UsePAM', line: 'UsePAM no' } 
-# Ú‘±‚Å‚«‚éƒ†[ƒU‚Ì§ŒÀ
+# æ¥ç¶šã§ãã‚‹ãƒ¦ãƒ¼ã‚¶ã®åˆ¶é™
   - { regexp: '^AllowUsers', insertafter: '^#AllowUsers', line: 'AllowUsers {{ user_name }}' }
-# GUI‚ÅƒT[ƒo‚ğ‘€ì‚µ‚È‚¢
+# GUIã§ã‚µãƒ¼ãƒã‚’æ“ä½œã—ãªã„
   - { regexp: '^X11Forwarding', insertafter: '^#X11Forwarding', line: 'X11Forwarding no' }
-# IPƒAƒhƒŒƒX‚ğg—p‚µ‚ÄÚ‘±‚·‚é‚½‚ßAFQDN‚ÌŒŸõ‚É‚©‚©‚é‘Ò‹@ŠÔ‚ğ–³‚­‚·B
+# IPã‚¢ãƒ‰ãƒ¬ã‚¹ã‚’ä½¿ç”¨ã—ã¦æ¥ç¶šã™ã‚‹ãŸã‚ã€FQDNã®æ¤œç´¢ã«ã‹ã‹ã‚‹å¾…æ©Ÿæ™‚é–“ã‚’ç„¡ãã™ã€‚
   - { regexp: '^UseDNS', insertafter: '^#UseDNS', line: 'UseDNS no' }
   
 hosts_allows:
@@ -51,28 +51,28 @@ hosts_denys:
   - { regexp: '$^', insertafter: '$^', line: 'ALL : ALL' }
   
 firewalld_drops:
-# ’Êí‚Ìsshƒ|[ƒg‚ÍÇ‚®
+# é€šå¸¸ã®sshãƒãƒ¼ãƒˆã¯å¡ã
   - { firewall-cmd --permanent --remove-service=ssh }
-# ipv6‚àÇ‚¢‚Å‚¨‚­ TODO
+# ipv6ã‚‚å¡ã„ã§ãŠã TODO
   - { firewall-cmd --permanent --remove-service=dhcpv6-client }
-# ƒf[ƒ^‚ğ‚½‚È‚¢ƒpƒPƒbƒg‚ÌÚ‘±‚ğ”jŠü‚·‚é
+# ãƒ‡ãƒ¼ã‚¿ã‚’æŒãŸãªã„ãƒ‘ã‚±ãƒƒãƒˆã®æ¥ç¶šã‚’ç ´æ£„ã™ã‚‹
   - { firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -p tcp --tcp-flags ALL NONE -j DROP }
-# SYNfloodUŒ‚‚Æv‚í‚ê‚éÚ‘±‚ğ”jŠü‚·‚é
+# SYNfloodæ”»æ’ƒã¨æ€ã‚ã‚Œã‚‹æ¥ç¶šã‚’ç ´æ£„ã™ã‚‹
   - { firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -p tcp ! --syn -m state --state NEW -j DROP }
-# ƒXƒeƒ‹ƒXƒXƒLƒƒƒ“‚Æv‚í‚ê‚éÚ‘±‚ğ”jŠü‚·‚é
+# ã‚¹ãƒ†ãƒ«ã‚¹ã‚¹ã‚­ãƒ£ãƒ³ã¨æ€ã‚ã‚Œã‚‹æ¥ç¶šã‚’ç ´æ£„ã™ã‚‹
   - { firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -p tcp --tcp-flags ALL ALL -j DROP }
-# ƒuƒ[ƒhƒLƒƒƒXƒgƒAƒhƒŒƒX‚ğ”jŠü‚·‚é
+# ãƒ–ãƒ­ãƒ¼ãƒ‰ã‚­ãƒ£ã‚¹ãƒˆã‚¢ãƒ‰ãƒ¬ã‚¹ã‚’ç ´æ£„ã™ã‚‹
   - { firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -m pkttype --pkt-type broadcast -j DROP }
-# ƒ}ƒ‹ƒ`ƒLƒƒƒXƒgƒAƒhƒŒƒX‚ğ”jŠü‚·‚é
+# ãƒãƒ«ãƒã‚­ãƒ£ã‚¹ãƒˆã‚¢ãƒ‰ãƒ¬ã‚¹ã‚’ç ´æ£„ã™ã‚‹
   - { firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -m pkttype --pkt-type multicast -j DROP  }
-# IP Spoofing(‚È‚è‚·‚Ü‚µ) ‚Ì‘Î‰(ŠO•”‚©‚ç‚â‚Á‚Ä‚­‚éƒ[ƒJƒ‹IP‚Í”jŠü)
+# IP Spoofing(ãªã‚Šã™ã¾ã—) ã®å¯¾å¿œ(å¤–éƒ¨ã‹ã‚‰ã‚„ã£ã¦ãã‚‹ãƒ­ãƒ¼ã‚«ãƒ«IPã¯ç ´æ£„)
   - { firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -i enp0s3 -s 127.0.0.1/8 -j DROP }
-  - { firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -i enp0s3 -s 10.0.0.0/8 -j DROP } #ŠJ”­ŠÂ‹«‚Å‚Í‹–‰Â
+  - { firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -i enp0s3 -s 10.0.0.0/8 -j DROP } #é–‹ç™ºç’°å¢ƒã§ã¯è¨±å¯
   - { firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -i enp0s3 -s 172.16.0.0/12 -j DROP }
-# firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -i enp0s3 -s 192.168.0.0/16 -j DROP }  #ŠJ”­ŠÂ‹«‚Å‚Í‹–‰Â
-# firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -i enp0s3 -s 192.168.0.0/24  -j DROP } #ŠJ”­ŠÂ‹«‚Å‚Í‹–‰Â
-# Ping of Death UŒ‚‘Îôifirewall-cmd‚ÉC³‚·‚é‚Ì‚ª‚ß‚ñ‚Ç‚­‚È‚Á‚½‚Ì‚ÅŠ„ˆ¤BQlƒTƒCƒg‚ğQÆ‚µ‚Ä‚­‚¾‚³‚¢Bj
-# Ping‚É•s—v‚Èicmpƒ^ƒCƒv‚ÌƒuƒƒbƒN(echo-requestAecho-reply ˆÈŠO)
+# firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -i enp0s3 -s 192.168.0.0/16 -j DROP }  #é–‹ç™ºç’°å¢ƒã§ã¯è¨±å¯
+# firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -i enp0s3 -s 192.168.0.0/24  -j DROP } #é–‹ç™ºç’°å¢ƒã§ã¯è¨±å¯
+# Ping of Death æ”»æ’ƒå¯¾ç­–ï¼ˆfirewall-cmdã«ä¿®æ­£ã™ã‚‹ã®ãŒã‚ã‚“ã©ããªã£ãŸã®ã§å‰²æ„›ã€‚å‚è€ƒã‚µã‚¤ãƒˆã‚’å‚ç…§ã—ã¦ãã ã•ã„ã€‚ï¼‰
+# Pingã«ä¸è¦ãªicmpã‚¿ã‚¤ãƒ—ã®ãƒ–ãƒ­ãƒƒã‚¯(echo-requestã€echo-reply ä»¥å¤–)
   - { firewall-cmd --permanent --add-icmp-block=destination-unreachable }
   - { firewall-cmd --permanent --add-icmp-block=parameter-problem }
   - { firewall-cmd --permanent --add-icmp-block=redirect }
@@ -80,13 +80,13 @@ firewalld_drops:
   - { firewall-cmd --permanent --add-icmp-block=router-solicitation }
   - { firewall-cmd --permanent --add-icmp-block=source-quench }
   - { firewall-cmd --permanent --add-icmp-block=time-exceeded }
-# invalid ƒpƒPƒbƒg‚ğ”jŠü
+# invalid ãƒ‘ã‚±ãƒƒãƒˆã‚’ç ´æ£„
   - { firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -m state --state INVALID -j DROP }
   - { firewall-cmd --permanent --direct --add-rule ipv4 filter FORWARD 0 -m state --state INVALID -j DROP }
   - { firewall-cmd --permanent --direct --add-rule ipv4 filter OUTPUT 0 -m state --state INVALID -j DROP }
   
 firewalld_inputs:
-# Ping FloodUŒ‚‘Îôi4‰ñˆÈãping‚ğóM‚µ‚½ê‡AˆÈ~‚Í1•bŠÔ‚É1“x‚¾‚¯‹–‰Â‚µ‚Ü‚·Bj
+# Ping Floodæ”»æ’ƒå¯¾ç­–ï¼ˆ4å›ä»¥ä¸Špingã‚’å—ä¿¡ã—ãŸå ´åˆã€ä»¥é™ã¯1ç§’é–“ã«1åº¦ã ã‘è¨±å¯ã—ã¾ã™ã€‚ï¼‰
   - { firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -p icmp --icmp-type 8 -m length --length :85 -m limit --limit 1/s --limit-burst 4 -j ACCEPT }
 # flooding of RST packets, smurf attack Rejection
   - { firewall-cmd --permanent --direct --add-rule ipv4 filter INPUT 0 -p tcp -m tcp --tcp-flags RST RST -m limit --limit 2/second --limit-burst 2 -j ACCEPT }
