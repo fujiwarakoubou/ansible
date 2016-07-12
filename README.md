@@ -1,10 +1,9 @@
 # Ansible Sample
 
 Ansible練習用のサンプルリポジトリ  
-さくらVPSのCentOS7に特化したものを目指してる（まだDockerのcentos7コンテナでしか確認できてないです）  
-コンテナでの実験には成功しましたが、UsePAMがコンテナの影響なのか、yesにするとsshにつながらない問題があります  
+さくらVPSのCentOS7に特化したものを目指してる→Dockerのcentos7コンテナでしか確認（UsePAMに問題あり）→さくらVPSで確認しました（UsePAM問題なし）  
 もし利用するならば、hostsを環境に合わせて修正してください  
-デフォルトのアドレスはDockerのコンテナです  
+デフォルトのアドレスはDockerの最初に立てたコンテナです  
 
 ## Usage
 
@@ -63,7 +62,7 @@ docker pull fujiwarakoubou/centos7-systemd-sshd-ansible
 
 ```
 docker run --name centos7 -d --privileged fujiwarakoubou/centos7-systemd-sshd-firewalld
-docker exec  -it centos7 /bin/bash
+docker exec -it centos7 /bin/bash
 passwd
 firewall-cmd --permanent --zone=public --change-interface=eth0
 firewall-cmd --reload
@@ -72,8 +71,8 @@ firewall-cmd --reload
 * Ansible実行サーバー
 
 ```
-docker run --name ansible  -d --privileged fujiwarakoubou/centos7-systemd-sshd-ansible
-docker exec  -it ansible /bin/bash
+docker run --name ansible -d --privileged fujiwarakoubou/centos7-systemd-sshd-ansible
+docker exec -it ansible /bin/bash
 git clone https://github.com/fujiwarakoubou/ansible.git
 cd ansible
 ansible-playbook -i hosts site.yml -k
@@ -89,6 +88,7 @@ docker inspect (コンテナ名またはコンテナID)
 * Ansible実行サーバーから秘密鍵を取り出す  
 
 ```
-docker cp ansible:~/roles/common/files/id_ed25519
+docker cp ansible:/root/ansible/roles/common/files/id_ed25519 id_ed25519
+docker cp ansible:/root/ansible/roles/common/files/id_ed25519.pub id_ed25519.pub
 ```
 

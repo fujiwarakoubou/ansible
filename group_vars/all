@@ -35,8 +35,8 @@ sshd_configs:
 # シングルサインオンの設定（GSSAPI options）　使用予定無し
   - { regexp: '^GSSAPIAuthentication', insertafter: '^#GSSAPIAuthentication', line: 'GSSAPIAuthentication no' }
   - { regexp: '^GSSAPICleanupCredentials', insertafter: '^#GSSAPICleanupCredentials', line: 'GSSAPICleanupCredentials no' }
-# TODO yesにするとsshがつながらない（dockerコンテナ環境）
-  - { regexp: '^UsePAM', insertafter: '^#UsePAM', line: 'UsePAM no' } 
+# dockerコンテナ環境でyesにするとsshがつながらない
+  - { regexp: '^UsePAM', insertafter: '^#UsePAM', line: 'UsePAM yes' } 
 # 接続できるユーザの制限
   - { regexp: '^AllowUsers', insertafter: '^#AllowUsers', line: 'AllowUsers {{ user_name }}' }
 # GUIでサーバを操作しない
