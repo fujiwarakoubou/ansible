@@ -25,6 +25,8 @@ group_vars      変数たち
 roles           サブモジュールたち
 ├ common       
 ├ debug        
+├ firewalld    
+├ reboot       
 └ sshkeygen    
 hosts           インベントリファイル（編集して下さい）
 site.yml        サーバー初期設定モジュール
