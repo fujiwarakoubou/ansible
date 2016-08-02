@@ -56,7 +56,7 @@ DockerでAnsibleのテスト環境を構築しようとしてるときのメモ
 * イメージのダウンロード
 
 ```
-docker pull fujiwarakoubou/centos7-systemd-sshd
+docker pull fujiwarakoubou/centos7-systemd-sshd-firewalld
 docker pull fujiwarakoubou/centos7-systemd-sshd-ansible
 ```
 
