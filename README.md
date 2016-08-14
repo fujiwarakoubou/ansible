@@ -1,7 +1,11 @@
 # Ansible Sample
 
 Ansible練習用のサンプルリポジトリ  
-さくらVPSのCentOS7に特化したものを目指してる→Dockerのcentos7コンテナでしか確認（UsePAMに問題あり）→さくらVPSで確認しました（UsePAM問題なし）  
+さくらVPSのCentOS7に特化したものを目指してる 
+↓  
+Dockerのcentos7コンテナで確認（UsePAMに問題あり）  
+↓  
+さくらVPSで確認しました（UsePAM問題なし）  
 もし利用するならば、hostsを環境に合わせて修正してください  
 デフォルトのアドレスはDockerの最初に立てたコンテナです  
 
