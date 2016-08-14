@@ -1,7 +1,7 @@
 # Ansible Sample
 
 Ansible練習用のサンプルリポジトリ  
-さくらVPSのCentOS7に特化したものを目指してる 
+さくらVPSのCentOS7に特化したものを目指してる  
 ↓  
 Dockerのcentos7コンテナで確認（UsePAMに問題あり）  
 ↓  
